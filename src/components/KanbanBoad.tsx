@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PlusIcon from "../icons/PlusIcon";
 import { Column } from "../types";
+import ColumnContainer from "./ColumnContainer";
 
 function KanbanBoad() {
   const [columns, setColumns] = useState<Column[]>([]);
@@ -16,11 +17,16 @@ function KanbanBoad() {
   function generateId() {
     return Math.floor(Math.random() * 10001);
   }
-  console.log(columns);
   
   return (
     <div className="mx-auto flex min-h-screen w-full items-center overflow-x-auto overflow-y-hidden px-[40px]">
-      <div className="mx-auto">
+      <div className="flex mx-auto gap-4">
+        {/* show our new columns */}
+        <div className="flex gap-4">
+          {columns.map(col => 
+          <ColumnContainer column={col} />
+          )}
+        </div>        
         <button
           onClick={createNewColumn}
           className="flex gap-2 p-4 ring-rose-500 hover:ring-2 h-[50px] w-[350px] min-w-[350px] cursor-pointer rounded-lg bg-mainBackgroundColor border-2 border-columnBackgroundColor"
