@@ -29,7 +29,7 @@ function KanbanBoad() {
         </div>        
         <button
           onClick={createNewColumn}
-          className="flex gap-2 p-4 ring-rose-500 hover:ring-2 h-[50px] w-[350px] min-w-[350px] cursor-pointer rounded-lg bg-mainBackgroundColor border-2 border-columnBackgroundColor"
+          className="flex gap-2 p-4 ring-borderRose hover:ring-2 h-[50px] w-[350px] min-w-[350px] cursor-pointer rounded-lg bg-mainBackgroundColor border-2 border-columnBackgroundColor"
         >
           <PlusIcon />
           Add Column
