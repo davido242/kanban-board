@@ -1,3 +1,4 @@
+import { useSortable } from "@dnd-kit/sortable";
 import TrashIcon from "../icons/Trash";
 import { Column, Id } from "../types";
 
@@ -8,11 +9,13 @@ interface Props {
 
 function ColumnContainer(props: Props) {
   const { column, deleteColumn } = props;
-
-  // const deleteColumn = (id: any) => {
-  //   console.log(id);
-
-  // }
+const { setNodeRef, listeners, transition, transform, attributes} = useSortable({
+  id: column.id,
+  data: {
+    type: 'Column',
+    column
+  }
+});
   return (
     <div
       key={column.id}
