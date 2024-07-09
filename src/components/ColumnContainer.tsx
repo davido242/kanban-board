@@ -1,6 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import TrashIcon from "../icons/Trash";
 import { Column, Id } from "../types";
+import { CSS } from "@dnd-kit/utilities";
 
 interface Props {
   column: Column;
@@ -9,23 +10,41 @@ interface Props {
 
 function ColumnContainer(props: Props) {
   const { column, deleteColumn } = props;
-const { setNodeRef, listeners, transition, transform, attributes} = useSortable({
-  id: column.id,
-  data: {
-    type: 'Column',
-    column
-  }
-});
+  const { setNodeRef, listeners, transition, transform, attributes } = useSortable({
+    id: column.id,
+    data: {
+      type: "Column",
+      column,
+    },
+  });
+
+  const style = {
+    transition,
+    transform: CSS.Transform.toString(transform),
+  };
   return (
     <div
+      ref={setNodeRef}
+      style={style}
       key={column.id}
-      className="bg-columnBackgroundColor w-[350px] h-[500px] max-h-[500px] flex flex-col rounded-md">
-      <div className="bg-mainBackgroundColor text-md h-[60px] cursor-grab p-3 rounded-md rounded-b-none border-4 flex justify-between">
+      className="bg-columnBackgroundColor w-[350px] h-[500px] max-h-[500px] flex flex-col rounded-md"
+    >
+      <div 
+      {...attributes}
+      {...listeners}
+      className="bg-mainBackgroundColor text-md h-[60px] cursor-grab p-3 rounded-md rounded-b-none border-4 flex justify-between">
         <div className="flex gap-2">
-          <div className="flex justify-center items-center py-1 px-2 text-sm bg-columnBackgroundColor rounded-full">0</div>
+          <div className="flex justify-center items-center py-1 px-2 text-sm bg-columnBackgroundColor rounded-full">
+            0
+          </div>
           {column.title}
         </div>
-        <button onClick={() => {deleteColumn(column.id)}} className="stroke-gray-500 hover:stroke-white hover:bg-columnBackgroundColor rounded px-1 py-2">
+        <button
+          onClick={() => {
+            deleteColumn(column.id);
+          }}
+          className="stroke-gray-500 hover:stroke-white hover:bg-columnBackgroundColor rounded px-1 py-2"
+        >
           <TrashIcon />
         </button>
       </div>

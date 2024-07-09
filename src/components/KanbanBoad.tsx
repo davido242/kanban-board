@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import PlusIcon from "../icons/PlusIcon";
 import { Column, Id } from "../types";
 import ColumnContainer from "./ColumnContainer";
-import { DndContext } from "@dnd-kit/core";
+import { DndContext, DragStartEvent } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 
 function KanbanBoad() {
@@ -25,9 +25,14 @@ function KanbanBoad() {
     const filteredColumn = columns.filter(column => column.id !== id);
     setColumns(filteredColumn);
   }
+
+  const ondragstart = (event: DragStartEvent) => {
+    console.log("Drag start: ", event)
+
+  };
   return (
     <div className="mx-auto flex min-h-screen w-full items-center overflow-x-auto overflow-y-hidden px-[40px]">
-      <DndContext>
+      <DndContext onDragStart={ondragstart}>
         <div className="flex mx-auto gap-4">
           {/* show our new columns */}
           <div className="flex gap-4">
