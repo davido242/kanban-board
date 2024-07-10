@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import PlusIcon from "../icons/PlusIcon";
 import { Column, Id } from "../types";
 import ColumnContainer from "./ColumnContainer";
-import { DndContext, DragOverlay, DragStartEvent } from "@dnd-kit/core";
+import { DndContext, DragOverlay, DragStartEvent, DragEnd } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
 
@@ -36,9 +36,13 @@ function KanbanBoad() {
       return;
     }
   };
+
+  const onDragEnd = (event: DragEnd) => {
+    console.log("Drag end: ", event);
+  }
   return (
     <div className="mx-auto flex min-h-screen w-full items-center overflow-x-auto overflow-y-hidden px-[40px]">
-      <DndContext onDragStart={onDragStart}>
+      <DndContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
         <div className="flex mx-auto gap-4">
           <div className="flex gap-4">
             <SortableContext items={columnsId}>
